@@ -14,7 +14,7 @@ class UserRepos(UserReposInterface):
         )
         self.__conn.commit()
 
-  def edit_balance(self, user_id: str, new_balance: float) -> None:
+  def edit_balance(self, user_id: int, new_balance: float) -> None:
        cursor = self.__conn.cursor()
        cursor.execute(
             '''
