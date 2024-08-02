@@ -2,6 +2,7 @@ import jwt
 from typing import Dict
 from datetime import datetime, timedelta, timezone
 from src.config.jwt_configs import jwt_infos
+
 class JwtHandler:
     def create_jwt_token(self, body: Dict = {}) -> str:
         token = jwt.encode(

@@ -1,5 +1,7 @@
 from src.drivers.jwt_handler import JwtHandler
 from src.drivers.password_handler import PasswordHandler
+from src.errors.types.bad_request import BadRequestError
+from src.errors.types.not_found import NotFoundError
 from src.models.interfaces.user_repo import UserReposInterface
 from .interfaces.login_create import LoginCreateInterface
 from typing import Dict
@@ -20,12 +22,12 @@ class LoginCreate(LoginCreateInterface):
 
   def __find_user(self,username: str) -> tuple[int, str, str]:
     user = self.__user_repos.get_user_by_username(username)
-    if not user: raise("User not found")
+    if not user: raise NotFoundError("User not found")
     return user
   
   def __verify_correct_password(self, password: str, hashed_password:str) -> None:
     is_correct = self.__password_handler.check_password(password, hashed_password)
-    if not is_correct: raise("Password is incorrect")
+    if not is_correct: raise BadRequestError("Password is incorrect")
 
   def __create_jwt_token(self, user_id: int) -> str:
         payload = { "user_id": user_id }
