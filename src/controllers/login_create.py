@@ -1,9 +1,8 @@
 from src.drivers.jwt_handler import JWTHandler
 from src.drivers.password_handler import PasswordHandler
 from src.models.interfaces.user_repo import UserReposInterface
-
-
-class LoginCreate:
+from .interfaces.login_create import LoginCreateInterface
+class LoginCreate(LoginCreateInterface):
 
   def __init__(self, user_repos:UserReposInterface) -> None:
     self.__user_repos = user_repos

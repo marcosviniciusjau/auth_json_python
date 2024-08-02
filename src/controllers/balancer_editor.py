@@ -1,5 +1,6 @@
+from src.controllers.interfaces.balance_editor import BalanceEditorInterface
 from src.models.interfaces.user_repo import UserRepoInterface
-class BalancerEditor:
+class BalancerEditor(BalanceEditorInterface):
   def __init__(self, user_repo: UserRepoInterface) -> None:
     self.__user_repo = user_repo
 
@@ -9,5 +10,4 @@ class BalancerEditor:
       "type": "User",
       "count": 1,
       "new_balance": new_balance
-
     }

@@ -1,8 +1,9 @@
+from src.controllers.interfaces.user_register import UserRegisterInterface
 from src.drivers.password_handler import PasswordHandler
 from src.models.repos.user_repos import UserRepos
 from src.models.interfaces.user_repo import UserReposInterface
 
-class UserRegister:
+class UserRegister(UserRegisterInterface):
 
   def __init__(self, user_repos:UserReposInterface) -> None:
     self.__user_repos = user_repos
