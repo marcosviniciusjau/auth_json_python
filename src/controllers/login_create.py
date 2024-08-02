@@ -1,15 +1,16 @@
-from src.drivers.jwt_handler import JWTHandler
+from src.drivers.jwt_handler import JwtHandler
 from src.drivers.password_handler import PasswordHandler
 from src.models.interfaces.user_repo import UserReposInterface
 from .interfaces.login_create import LoginCreateInterface
+from typing import Dict
 class LoginCreate(LoginCreateInterface):
 
   def __init__(self, user_repos:UserReposInterface) -> None:
     self.__user_repos = user_repos
-    self.__jwt_handler = JWTHandler()
+    self.__jwt_handler = JwtHandler()
     self.__password_handler = PasswordHandler()
 
-  def create(self,username: str, password: str) -> dict:
+  def create(self,username: str, password: str) -> Dict:
     user = self.__find_user(username)
     user_id = user[0]
     hashed_password = user[2]
@@ -27,9 +28,10 @@ class LoginCreate(LoginCreateInterface):
     if not is_correct: raise("Password is incorrect")
 
   def __create_jwt_token(self, user_id: int) -> str:
-    payload = { "user_id": user_id }
-    token = self.__jwt_handler.create_token(payload)
-    return token
+        payload = { "user_id": user_id }
+        token = self.__jwt_handler.create_jwt_token(payload)
+        return token
+
   
   def __format_response(self, username: str, token:str) -> dict:
     return {

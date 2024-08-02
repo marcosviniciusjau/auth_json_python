@@ -1,19 +1,19 @@
 from src.controllers.interfaces.user_register import UserRegisterInterface
-from src.views.http_types.request import Request
-from src.views.http_types.response import Response
+from src.views.http_types.http_request import HttpRequest
+from src.views.http_types.http_response import HttpResponse
 
 
 class UserRegisterView:
   def __init__(self, controller: UserRegisterInterface) -> None:
     self.__controller = controller
 
-  def handle(self, request: Request) -> Response:
+  def handle(self, request: HttpRequest) -> HttpResponse:
     username = request.body.get("username")
     password = request.body.get("password")
     self.__validate_inputs(username, password)
 
     response = self.__controller.registry_user(username, password)
-    return Response(body={"data": response}, status_code=201)
+    return HttpResponse(body={"data": response}, status_code=201)
 
   def __validate_inputs(self,username: any, password: any) -> None:
     if (

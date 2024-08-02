@@ -1,6 +1,6 @@
 from src.controllers.interfaces.balance_editor import BalanceEditorInterface
-from src.views.http_types.request import Request
-from src.views.http_types.response import Response
+from src.views.http_types.http_request import HttpRequest
+from src.views.http_types.http_response import HttpResponse
 
 
 class BalanceEditorView:
@@ -8,13 +8,13 @@ class BalanceEditorView:
   def __init__(self, controller: BalanceEditorInterface) -> None:
     self.__controller = controller
 
-  def handle(self, request: Request) -> Response:
+  def handle(self, request: HttpRequest) -> HttpResponse:
     new_balance = request.body.get("new_balance")
-    user_id = request.param.param.get("user_id")
+    user_id = request.params.get("user_id")
     self.__validate_inputs(new_balance, user_id)
 
     response = self.__controller.edit(user_id, new_balance)
-    return Response(body={"data": response}, status_code=200)
+    return HttpResponse(body={"data": response}, status_code=200)
 
   def __validate_inputs(self,new_balance: any, user_id: any) -> None:
     if (
