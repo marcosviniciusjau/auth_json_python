@@ -13,7 +13,7 @@ class BalanceEditorView:
     new_balance = request.body.get("new_balance")
     user_id = request.params.get("user_id")
     header_user_id = request.headers.get("uid")
-    self.__validate_inputs(new_balance, user_id)
+    self.__validate_inputs(new_balance, user_id,header_user_id)
 
     response = self.__controller.edit(user_id, new_balance)
     return HttpResponse(body={"data": response}, status_code=200)
